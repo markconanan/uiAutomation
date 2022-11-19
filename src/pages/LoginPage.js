@@ -21,17 +21,13 @@ class LoginPage {
     async getEmailErrorMessage() {
         const errorMessage = await $('#email-error-text')
         await errorMessage.waitForDisplayed({ timeout: 30000 });
-        console.log(await errorMessage.getText())
-        var errorMessageText = await errorMessage.getText()
-        return errorMessageText
+        return errorMessage
     }
 
     async getPasswordErrorMessage() {
         const errorMessage = await $('#password-error-text')
         await errorMessage.waitForDisplayed({ timeout: 30000 });
-        console.log(await errorMessage.getText())
-        var errorMessageText = await errorMessage.getText()
-        return errorMessageText
+        return errorMessage
     }
 
 }

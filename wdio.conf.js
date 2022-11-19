@@ -217,14 +217,14 @@ exports.config = {
      */
      beforeTest: function (test, context) {
         browser.url(this.baseUrl);
-        const chai = require('chai')
-        const chaiWebdriver = require('chai-webdriverio').default
+        // const chai = require('chai')
+        // // const chaiWebdriver = require('chai-webdriverio').default
 
-        chai.use(chaiWebdriver(browser))
+        // // chai.use(chaiWebdriver(browser))
 
-        global.assert = chai.assert
-        global.should = chai.should()
-        global.expect = chai.expect
+        // global.assert = chai.assert
+        // global.should = chai.should()
+        // global.expect = chai.expect
         // const mocha = require('mocha')
         // global.assert = mocha.assert
     },
