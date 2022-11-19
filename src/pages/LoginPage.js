@@ -2,7 +2,7 @@ class LoginPage {
 
     async enterEmail(email) {
         const emailInput = await $('//*[@id="email"]')
-        await emailInput.waitForDisplayed({ timeout: 30000 });
+        await emailInput.waitForDisplayed({ timeout: 30000 })
         await emailInput.setValue(email)
         return this
     }
@@ -20,13 +20,13 @@ class LoginPage {
 
     async getEmailErrorMessage() {
         const errorMessage = await $('#email-error-text')
-        await errorMessage.waitForDisplayed({ timeout: 30000 });
+        await errorMessage.waitForDisplayed({ timeout: 30000 })
         return errorMessage
     }
 
     async getPasswordErrorMessage() {
         const errorMessage = await $('#password-error-text')
-        await errorMessage.waitForDisplayed({ timeout: 30000 });
+        await errorMessage.waitForDisplayed({ timeout: 30000 })
         return errorMessage
     }
 

@@ -1,3 +1,5 @@
+const allure = require('allure-commandline')
+
 exports.config = {
     //
     // ====================
@@ -24,6 +26,18 @@ exports.config = {
     specs: [
         './src/tests/**.js'
     ],
+    suites: {
+        logintests: [
+            './src/tests/LoginTests.js'
+        ],
+        searchtests: [
+            './src/tests/SearchTests.js'
+        ],
+        mybagtests: [
+            './src/tests/MyBagTests.js'
+        ]
+    },
+
     // Patterns to exclude.
     exclude: [
         // 'path/to/excluded/files'
@@ -134,9 +148,13 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec'],
-
-
+    reporters: ['spec',['allure', {
+        outputDir: 'allure-results',
+        disableWebdriverStepsReporting: true,
+        disableWebdriverScreenshotsReporting: true,
+        disableMochaHooks: false
+        }],
+    ],
     
     //
     // Options to be passed to Mocha.
@@ -197,8 +215,9 @@ exports.config = {
      * @param {Array.<String>} specs        List of spec file paths that are to be run
      * @param {Object}         browser      instance of created browser/device session
      */
-    // before: function (capabilities, specs) {
-    // },
+     before: async function (capabilities, specs) {
+        await browser.maximizeWindow();
+    },
     /**
      * Runs before a WebdriverIO command gets executed.
      * @param {String} commandName hook command name
@@ -217,16 +236,13 @@ exports.config = {
      */
      beforeTest: function (test, context) {
         browser.url(this.baseUrl);
-        // const chai = require('chai')
-        // // const chaiWebdriver = require('chai-webdriverio').default
-
-        // // chai.use(chaiWebdriver(browser))
-
-        // global.assert = chai.assert
-        // global.should = chai.should()
-        // global.expect = chai.expect
-        // const mocha = require('mocha')
-        // global.assert = mocha.assert
+        browser.waitUntil(
+            () => browser.execute(() => document.readyState === 'complete'),
+            {
+              timeout: 60 * 1000, // 60 seconds
+              timeoutMsg: 'Page did not load in one minute'
+            }
+        )
     },
     /**
      * Hook that gets executed _before_ a hook within the suite starts (e.g. runs before calling
@@ -250,7 +266,10 @@ exports.config = {
      * @param {Boolean} result.passed    true if test has passed, otherwise false
      * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    afterTest: function(test, context, { error, result, duration, passed, retries }) {
+     afterStep: async function (step, scenario, { error, duration, passed }, context) {
+        if (error) {
+          await browser.takeScreenshot();
+        }
         browser.deleteAllCookies();
     },
 
@@ -295,8 +314,26 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      * @param {<Object>} results object containing test results
      */
-    // onComplete: function(exitCode, config, capabilities, results) {
-    // },
+     onComplete: function(exitCode, config, capabilities, results) {
+        const reportError = new Error('Could not generate Allure report')
+        const generation = allure(['generate', 'allure-results', '--clean'])
+        return new Promise((resolve, reject) => {
+            const generationTimeout = setTimeout(
+                () => reject(reportError),
+                5000)
+
+            generation.on('exit', function(exitCode) {
+                clearTimeout(generationTimeout)
+
+                if (exitCode !== 0) {
+                    return reject(reportError)
+                }
+
+                console.log('Allure report successfully generated')
+                resolve()
+            })
+        })
+    },
     /**
     * Gets executed when a refresh happens.
     * @param {String} oldSessionId session ID of the old session

@@ -10,6 +10,14 @@ class HomePage {
         return this
     }
 
+    async enterSearch(searchInput) {
+        const search = await $('#desktopWrapper').$('//*[@id="search-input"]')
+        await search.click()
+        await search.setValue(searchInput)
+        await browser.keys('Enter')
+        return this
+    }
+
 }
 
 module.exports = new HomePage()
