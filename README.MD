@@ -5,6 +5,9 @@ This repo contains an automation framework for UI Automation Tests
 * Node.js 18 - Please note some packages may not run properly with Node Version 19
 * Java
 
+# Test Cases
+Please click [here](https://docs.google.com/spreadsheets/d/14OTZwksWD6i3nQO6ZlCokeBGmDtX5lRP/edit?usp=sharing&ouid=101616933613782818747&rtpof=true&sd=true) for the test cases used in this project.
+
 # Test Data
 The test uses json files to provide data to the test. This can be found in src/resources. Further json files can be created if needed as necessary if more tests are created.
 

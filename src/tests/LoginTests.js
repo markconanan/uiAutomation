@@ -4,6 +4,7 @@ var formData = require("../resources/loginForm.json")
 
 describe('LoginTests', () => {
 
+    //verifies error messages for empty input
     it('TC_001 - Verify Error Messages for Empty Input', async () => {
         await homePage.clickLoginButton();
         await loginPage.clickSubmit()
@@ -11,6 +12,7 @@ describe('LoginTests', () => {
         await expect(loginPage.getPasswordErrorMessage()).toHaveText('Please enter your password')
     })
 
+    //verifires error messages for invalid input
     it('TC_002 - Verify Error Messages for Invalid Email', async () => {
         await homePage.clickLoginButton();
         await loginPage.enterEmail(formData.invalidEmail)

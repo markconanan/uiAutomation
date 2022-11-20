@@ -1,3 +1,5 @@
+//contains selectors, locators and functions for Search Results Page
+
 class SearchResultPage {
 
     async getSearchResultHeader() {
@@ -9,7 +11,8 @@ class SearchResultPage {
     async clickFirstItem() {
         const productGrid = await $('[data-automation="product-grid"]')
         await productGrid.waitForDisplayed({ timeout: 30000 })
-        await (await productGrid.$('[data-automation="product"]')).click()
+        const firstItem = await $(`li[data-automation="product-grid-item"]:first-of-type`)
+        await firstItem.click()
         return this
     }
 

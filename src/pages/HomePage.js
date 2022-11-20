@@ -1,7 +1,8 @@
-//contains functions for HomePage
+//contains selectors, locators and functions for HomePage
 
 class HomePage {
 
+    //click login button in top menu bar
     async clickLoginButton() {
         const signinbutton = await $('//*[@id="iconContainer"]/div/div/button')
         await signinbutton.click()
@@ -12,6 +13,7 @@ class HomePage {
         return this
     }
 
+    //enter search input in search bar
     async enterSearch(searchInput) {
         const search = await $('#desktopWrapper').$('//*[@id="search-input"]')
         await search.click()

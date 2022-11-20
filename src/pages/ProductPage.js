@@ -1,5 +1,8 @@
+//contains selectors, locators and functions for Product Page
+
 class ProductPage {
 
+    //clicks Add To Bag to add the item to My Bag
     async clickAddToBag() {
         const addToBagBtn = await $("[automation='static']").$('//*[@id="add-to-bag-btn"]')
         await addToBagBtn.waitForDisplayed({ timeout: 30000 })
@@ -7,13 +10,7 @@ class ProductPage {
         return this
     }
     
-    async clickBagMenu() {
-        const bagMenuButton = await $("[data-automation='header-bag']")
-        await bagMenuButton.waitForDisplayed({ timeout: 30000 })
-        await bagMenuButton.click()
-        return this
-    }
-
+    //gets the item name based on the product page
     async getItemName() {
         const productName = await $("[data-automation='product-title']")
         await productName.waitForDisplayed({ timeout: 30000 })
@@ -21,6 +18,7 @@ class ProductPage {
         return productNameText
     }
 
+    //gets the item price based on the product page
     async getItemPrice() {
         const productPrice = await $("[data-automation='product-price-now']")
         await productPrice.waitForDisplayed({ timeout: 30000 })
@@ -28,6 +26,7 @@ class ProductPage {
         return productPriceText
     }
 
+    //clicks View Bag Checkout Button in Slide Panel
     async clickViewBagCheckoutButton() {
         const sidePanel = await $('#slide-panel')
         await sidePanel.waitForDisplayed({ timeout: 30000 })
@@ -35,14 +34,6 @@ class ProductPage {
         await button.waitForDisplayed({ timeout: 30000 })
         await button.click()
         return this
-    }
-
-    async getItemNameInSidePanel() {
-        const sidePanel = await $('#slide-panel')
-        await sidePanel.waitForDisplayed({ timeout: 30000 })
-        const itemName = await $('//*[@id="slide-panel"]/span/span[1]/div/div[2]/span[2]')
-        const itemNameText = await itemName.getText()
-        return itemNameText
     }
 
 }
