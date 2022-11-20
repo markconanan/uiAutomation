@@ -2,7 +2,6 @@ const homePage = require("../pages/HomePage.js")
 const loginPage = require("../pages/LoginPage.js")
 var formData = require("../resources/loginForm.json")
 
-
 describe('LoginTests', () => {
 
     it('TC_001 - Verify Error Messages for Empty Input', async () => {

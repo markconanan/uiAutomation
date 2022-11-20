@@ -14,14 +14,14 @@ class ProductPage {
         return this
     }
 
-    async getProductName() {
+    async getItemName() {
         const productName = await $("[data-automation='product-title']")
         await productName.waitForDisplayed({ timeout: 30000 })
         const productNameText = await productName.getText()
         return productNameText
     }
 
-    async getProductPrice() {
+    async getItemPrice() {
         const productPrice = await $("[data-automation='product-price-now']")
         await productPrice.waitForDisplayed({ timeout: 30000 })
         const productPriceText = await productPrice.getText()
@@ -44,7 +44,6 @@ class ProductPage {
         const itemNameText = await itemName.getText()
         return itemNameText
     }
-
 
 }
 

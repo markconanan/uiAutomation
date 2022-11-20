@@ -1,3 +1,5 @@
+//contains functions for HomePage
+
 class HomePage {
 
     async clickLoginButton() {

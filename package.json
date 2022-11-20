@@ -4,7 +4,8 @@
     "description": "Automation using webdriver and JS",
     "main": "index.js",
     "scripts": {
-        "test": "wdio"
+        "test": "wdio",
+        "test-suite": "wdio wdio.conf.js --suite"
     },
     "keywords": [
         "webdriver"
