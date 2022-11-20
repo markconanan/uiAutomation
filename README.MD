@@ -21,3 +21,5 @@ To run the tests, clone or download the zip of this repo then install the node m
 # Report
 There is spec report available in the terminal.
 There is also html report generated every test run. To open the html report, enter ```allure open``` in the terminal. A screenshot is taken when an error occurs in the test.
+
+# [UI Automation Repo Link](https://github.com/markconanan/uiAutomation)
